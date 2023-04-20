@@ -15,9 +15,7 @@ abstract public class Unit {
 
     };
 
-    public boolean isGate(){
-        return false;
-    }
+
 
 
 }

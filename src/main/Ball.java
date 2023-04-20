@@ -25,7 +25,7 @@ public class Ball extends Unit{
         do{
             isMoved = moveOnOneCell(direction);
             if(!isMoved){
-                if (this.owner().getNeighbour(direction).getUnit().isGate()) {
+                if (this.owner().getNeighbour(direction).getUnit() instanceof Gate) {
                     this.owner().getNeighbour(direction).getUnit().goal(this);
                 }
             }

@@ -27,14 +27,7 @@ public class Gate extends Unit{
 
     }
 
-    /**
-     * Проверка является ли Unit воротами
-     * @return
-     */
-    @Override
-    public boolean isGate() {
-        return true;
-    }
+
 
     // ---------------------- Порождает события -----------------------------
 
