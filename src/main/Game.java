@@ -42,9 +42,7 @@ public class Game {
      * @return результат проверки
      */
     private boolean end() {
-        if (field.hasBall().size()!=0)
-            return true;
-        else return false;
+        return field.hasBall().size()!=0;
     }
 
     /**
