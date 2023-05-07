@@ -33,6 +33,11 @@ public class testGame {
         public void ballMoved(BallEvent e) {
             ball_events.add(EVENT.BALLMOVED);
         }
+
+        @Override
+        public void ballMovedOneCell(BallEvent e) {
+
+        }
     }
 
 

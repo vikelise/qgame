@@ -1,9 +1,6 @@
 package main;
 
-import main.events.BallEvent;
-import main.events.BallListener;
-import main.events.GateEvent;
-import main.events.GateListener;
+import main.events.*;
 
 import java.util.ArrayList;
 
@@ -42,7 +39,7 @@ public class Game {
      * @return результат проверки
      */
     private boolean end() {
-        return field.hasBall().size()!=0;
+        return field.hasBall().size()==0;
     }
 
     /**
@@ -80,7 +77,16 @@ public class Game {
         public void ballIsGoal(GateEvent e) {
             setActiveBall(null);
             field.removeBall(e.getBall());
-            end();
+            if(!end()){
+                setActiveBall(field.hasBall().get(0));
+                repaintGoalBall(e.getOldPosition(), e.getBall());
+            }else
+            {
+                dellLastBall(e.getOldPosition(), e.getBall());
+                fireGameStatusIsChanged(true);
+            }
+
+
         }
     }
 
@@ -89,8 +95,48 @@ public class Game {
 
         @Override
         public void ballMoved(BallEvent e) {
-            setActiveBall(null);
             end();
+        }
+
+        @Override
+        public void ballMovedOneCell(BallEvent e) {
+            repaintMovedBall(e.getOldPosition());
+        }
+    }
+
+    private ArrayList<GameListener> gameListeners = new ArrayList<>();
+
+    public void addGameListener(GameListener listener) {
+        gameListeners.add(listener);
+    }
+
+    public void removeGameListener( GameListener listener) {
+        gameListeners.remove(listener);
+    }
+
+    public void repaintMovedBall(Cell oldPosition){
+        for(GameListener listener: gameListeners) {
+            listener.repaintMovedBall(oldPosition);
+        }
+    }
+
+    public void repaintGoalBall(Cell oldPosition, Ball dellBall){
+        for(GameListener listener: gameListeners) {
+            listener.repaintGoalBall(oldPosition, dellBall);
+        }
+    }
+
+    private void dellLastBall(Cell oldPosition, Ball dellBall){
+        for(GameListener listener: gameListeners) {
+            listener.dellLastBall(oldPosition, dellBall);
+        }
+    };
+
+    private void fireGameStatusIsChanged( boolean victory) {
+        for(GameListener listener: gameListeners) {
+            GameEvent event = new GameEvent(listener);
+            event.setVictory(victory);
+            listener.gameStatusChanged(event);
         }
     }
 }

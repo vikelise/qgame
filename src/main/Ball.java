@@ -28,9 +28,9 @@ public class Ball extends Unit{
                 if (this.owner().getNeighbour(direction).getUnit() instanceof Gate) {
                     this.owner().getNeighbour(direction).getUnit().goal(this);
                 }
-            }
+            }else ballMovedOneCell(this.owner().getNeighbour(direction.getOppositeDirection()));
         }
-        while (this.owner().getNeighbour(direction)!=null && isMoved);
+        while (this.owner()!=null && this.owner().getNeighbour(direction)!=null && isMoved);
         ballMoved();
     }
 
@@ -76,6 +76,24 @@ public class Ball extends Unit{
             ((BallListener)listener).ballMoved(event);
         }
     }
+
+    protected void ballMovedOneCell(Cell cell){
+        BallEvent event = new BallEvent(this);
+        event.setBall(this);
+        event.setOldPosition(cell);
+
+        for (Object listener : ballListener){
+            ((BallListener)listener).ballMovedOneCell(event);
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 }

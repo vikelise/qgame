@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,14 @@ import java.util.Map;
 public class Field {
     private int width;
     private int height;
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     private ArrayList<Ball> balls = new ArrayList<>();
     private Map<Point, Cell> cells = new HashMap<>();
 
@@ -57,6 +66,7 @@ public class Field {
     public void removeBall(Ball b){
         this.balls.remove(b);
     }
+
 
 
 }

@@ -13,6 +13,10 @@ public class Gate extends Unit{
 
     }
 
+    public String getColor(){
+        return color;
+    }
+
     /**
      * Попытаться поглотить мячик воротами
      * @param ball - поглощаемый (забиваемый) мячик
@@ -20,9 +24,10 @@ public class Gate extends Unit{
     @Override
     public void goal(Ball ball){
         if(ball.getColor()==this.color) {
+            Cell oldOwner = ball.owner();
             ball.owner().setUnit(null);
             ball.setOwner(null);
-            ballIsGoal(ball);
+            ballIsGoal(ball, oldOwner);
         }
 
     }
@@ -44,10 +49,11 @@ public class Gate extends Unit{
     }
 
     // Оповещает слушателей о событии
-    protected void ballIsGoal(Ball ball){
+    protected void ballIsGoal(Ball ball, Cell cell){
         GateEvent event = new GateEvent(this);
         event.setGate(this);
         event.setBall(ball);
+        event.setOldPosition(cell);
 
         for(Object listener : gateListeners){
             ((GateListener)listener).ballIsGoal(event);

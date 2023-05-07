@@ -2,6 +2,7 @@ package main.events;
 
 
 import main.Ball;
+import main.Cell;
 import main.Gate;
 
 import java.util.EventObject;
@@ -9,9 +10,21 @@ import java.util.EventObject;
 public class GateEvent extends EventObject {
     private Gate gate;
     private Ball ball;
+
+    private Cell oldPosition;
     public GateEvent(Object source) {
         super(source);
     }
+
+    public void setOldPosition(Cell cell){
+        oldPosition = cell;
+    }
+
+    public Cell getOldPosition(){
+        return oldPosition;
+    }
+
+
 
     public void setGate(Gate g){
         this.gate = g;
