@@ -22,8 +22,10 @@ public class testGate {
     @Test
     public  void colorBallSameColorGate(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball("red");
-        Gate gate = new Gate("red");
+        Ball ball = new Ball();
+        ball.setColor("red");
+        Gate gate = new Gate();
+        gate.setColor("red");
 
         field.getCell(new Point(0,  0)).setUnit(ball);
         ball.setOwner(field.getCell(new Point(0,  0)));
@@ -45,8 +47,10 @@ public class testGate {
     @Test
     public  void colorBallNotSameColorGate(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball("red");
-        Gate gate = new Gate("green");
+        Ball ball = new Ball();
+        ball.setColor("red");
+        Gate gate = new Gate();
+        gate.setColor("blue");
 
         field.getCell(new Point(0,  0)).setUnit(ball);
         ball.setOwner(field.getCell(new Point(0,  0)));

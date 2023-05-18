@@ -17,9 +17,6 @@ public class FieldWidget extends JPanel {
         this.field = field;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         fillField();
-
-
-
     }
 
     public void addBallWidget(Ball b, BallWidget bw){
@@ -40,7 +37,7 @@ public class FieldWidget extends JPanel {
 
     private void fillField(){
         for(int i=0; i< field.getHeight(); i++){
-            JPanel row =createRow(i);
+            JPanel row = createRow(i);
             add(row);
             JPanel rowWalls = createRowWalls(i, Direction.SOUTH);
             add(rowWalls);
@@ -62,24 +59,21 @@ public class FieldWidget extends JPanel {
                 cellWidget.addItem(ballWidget);
             }else if (cell.getUnit() instanceof Gate){
                 GateWidget gateWidget = new GateWidget((Gate) cell.getUnit());
-                cellWidget.setBackground(gateWidget.getBackground());
+                cellWidget.setBackground(Color.decode(gateWidget.getColor()));
             }else if (cell.getUnit() instanceof Wall){
-                cellWidget.setBackground(Color.decode(((Wall) cell.getUnit()).getColor()));
+                WallWidget wallWidget = new WallWidget((Wall) cell.getUnit());
+                cellWidget.setBackground(Color.decode(wallWidget.getWallColor()));
             }
-
+//widgets[cell.getUnit().getClass()].call();
+            // cell.getUnit().createWidget();
             cellsWidgets.put(cell, cellWidget);
-
-
 
             BetweenCellsWidget westCellWidget = new BetweenCellsWidget(Orientation.VERTICAL);
             row.add(westCellWidget);
 
-
-
             row.add(cellWidget);
 
             BetweenCellsWidget eastCellWidget = new BetweenCellsWidget(Orientation.VERTICAL);
-
 
             row.add(eastCellWidget);
         }

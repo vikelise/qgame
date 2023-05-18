@@ -3,19 +3,25 @@ package main.ui;
 import main.Gate;
 
 import javax.swing.*;
-import java.awt.*;
-
 
 public class GateWidget extends JPanel {
-    Gate gate;
-    public GateWidget(Gate gate){
-        this.gate = gate;
-        if(gate.getColor() == "blue") {
-            setBackground(Color.decode("#8DC2FF"));
-        }else if(gate.getColor()=="red")
-        {
-            setBackground(Color.decode("#F4A2A2"));
-        }
+    private Gate gate;
+    private String GATE_COLOR;
+    public GateWidget(Gate g){
+        this.gate = g;
+        setColor();
     }
+
+    private void setColor(){
+        if(gate.getColor() == "red")
+            GATE_COLOR = "#F4A2A2";
+        if(gate.getColor() == "blue")
+            GATE_COLOR = "#8DC2FF";
+        if(gate.getColor()=="green")
+            GATE_COLOR = "#9CE073";
+    }
+
+    public String getColor(){return GATE_COLOR;}
+
 
 }

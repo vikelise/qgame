@@ -18,7 +18,6 @@ public class GameWidget extends JPanel {
         addKeyListener(new KeyController());
         setFocusable(true);
         requestFocus();
-
     }
 
 
@@ -44,33 +43,35 @@ public void setFieldWidget(FieldWidget fw){
             moveAction(keyCode);
             replaceBall(keyCode);
 
-
-
         }
 
         @Override
         public void keyReleased(KeyEvent arg0) {
         }
 
-        private void moveAction(int keyCode){
+        private void moveAction(int keyCode) {
+
             Direction direction = directionByKeyCode(keyCode);
             if(direction != null && game.getActiveBall()!=null) {
-                game.getActiveBall().move(direction);
+                setFocusable(false);
+                game.setDirection(direction);
             }
         }
 
 
         private void replaceBall(int keyCode){
             if(keyCode == KeyEvent.VK_TAB){
+                fieldWidget.getBallWidget(game.getActiveBall()).setActive(false);
                 if(game.getField().hasBall().indexOf(game.getActiveBall()) == game.getField().hasBall().size()-1){
-                    fieldWidget.getBallWidget(game.getActiveBall()).setActive(false);
+
                     game.setActiveBall(game.getField().hasBall().get(0));
-                    fieldWidget.getBallWidget(game.getActiveBall()).setActive(true);
+
                 }else{
-                    fieldWidget.getBallWidget(game.getActiveBall()).setActive(false);
+
                     game.setActiveBall(game.getField().hasBall().get(game.getField().hasBall().indexOf(game.getActiveBall())+1));
-                    fieldWidget.getBallWidget(game.getActiveBall()).setActive(true);
+
                 };
+                fieldWidget.getBallWidget(game.getActiveBall()).setActive(true);
             }
         }
 

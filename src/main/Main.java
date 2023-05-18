@@ -83,6 +83,12 @@ public class Main {
                 gameWidget.getFieldWidget().getCellWidget(oldPosition).removeItem(gameWidget.getFieldWidget().getBallWidget(dellBall));
                 gameWidget.getFieldWidget().dellBallWidget(dellBall);
             }
+
+            @Override
+            public void ballMoved() {
+                gameWidget.setFocusable(true);
+                gameWidget.requestFocus();
+            }
         }
     }
 

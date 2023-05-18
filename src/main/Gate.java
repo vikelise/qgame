@@ -6,16 +6,15 @@ import main.events.GateListener;
 import java.util.ArrayList;
 
 public class Gate extends Unit{
-    private String color;
 
-    public Gate(String c){
-        this.color = c;
 
+private String color;
+public void setColor(String c){
+    this.color = c;
     }
+    public  String getColor(){return color;}
 
-    public String getColor(){
-        return color;
-    }
+
 
     /**
      * Попытаться поглотить мячик воротами
@@ -23,7 +22,7 @@ public class Gate extends Unit{
      */
     @Override
     public void goal(Ball ball){
-        if(ball.getColor()==this.color) {
+        if(ball.getColor()==this.getColor()) {
             Cell oldOwner = ball.owner();
             ball.owner().setUnit(null);
             ball.setOwner(null);

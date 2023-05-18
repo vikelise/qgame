@@ -17,7 +17,6 @@ public class BallWidget extends CellWidget {
     public BallWidget(Ball ball){
         super();
         this.ball = ball;
-        //setFocusable(true);
     }
 
     @Override
@@ -26,31 +25,28 @@ public class BallWidget extends CellWidget {
 
         try {
             BufferedImage image = ImageIO.read(getBallFileByActive(ball, active));
-            image = ImageUtils.resizeImage(image, 100, 100);
-            g.drawImage(image,10, 5, null);
+            image = resizeImage(image, 40, 40);
+            g.drawImage(image,5, 0, null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-
-
-    }
-    protected BufferedImage getImage() {
-        BufferedImage image = null;
-        try{
-            image = ImageIO.read(getBallFileByActive(ball, active));
-            image = ImageUtils.resizeImage(image, 120, 120);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
     }
 
 
-//    @Override
-//    public CellWidget.Layer getLayer() {
-//        return CellWidget.Layer.TOP;
-//    }
+    private static BufferedImage resizeImage(BufferedImage img, Integer width, Integer height) {
+        Image tmpImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g = bufferedImage.createGraphics();
+        g.drawImage(tmpImg, 0, 0, null);
+        g.dispose();
+
+        return bufferedImage;
+    }
+
+
+
 
 
     public void setActive(boolean state){
@@ -70,6 +66,16 @@ public class BallWidget extends CellWidget {
         if (ball.getColor() == "blue") {
             file = active ? new File("activeBlueBall.png") : new File("blueBall.png");
         }
+        if (ball.getColor() == "green") {
+            file = active ? new File("activeGreenBall.png") : new File("greenBall.png");
+        }
+
+//        file = active ? new File("active"+ball.getColor()+"Ball.png") : new File("greenBall.png");
+
+//        String res = "";
+//        if (active) { res.append("active"); }
+//        res.append(ball.getColor()+"Ball.png");
+//        new File(res);
         return file;
     }
 

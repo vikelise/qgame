@@ -63,7 +63,7 @@ public class Game {
      * @param direction - направление движения
      */
     public void setDirection(Direction direction) {
-        activeBall.move(direction);
+        activeBall.startMove(direction);
     }
 
 
@@ -94,12 +94,12 @@ public class Game {
     private class BallObserver implements BallListener {
 
         @Override
-        public void ballMoved(BallEvent e) {
-            end();
+        public void ballEndMoving(BallEvent e) {
+            ballMoved();
         }
 
         @Override
-        public void ballMovedOneCell(BallEvent e) {
+        public void moveOnStep(BallEvent e) {
             repaintMovedBall(e.getOldPosition());
         }
     }
@@ -112,6 +112,12 @@ public class Game {
 
     public void removeGameListener( GameListener listener) {
         gameListeners.remove(listener);
+    }
+
+    public void ballMoved(){
+        for(GameListener listener: gameListeners){
+            listener.ballMoved();
+        }
     }
 
     public void repaintMovedBall(Cell oldPosition){

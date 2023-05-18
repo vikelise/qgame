@@ -15,4 +15,6 @@ public interface GameListener extends EventListener {
     void repaintGoalBall(Cell oldPosition, Ball delBall);
 
     void dellLastBall(Cell oldPosition, Ball dellBall);
+
+    void ballMoved();
 }

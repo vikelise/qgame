@@ -18,25 +18,28 @@ public class testBall {
 
 
     @Test
-    public  void goingBeyondBordersField(){
+    public  void goingBeyondBordersField() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball first_ball = new Ball("red");
+        Ball first_ball = new Ball();
+        first_ball.setColor("red");
 
         field.getCell(new Point(0,  0)).setUnit(first_ball);
         first_ball.setOwner(field.getCell(new Point(0,  0)));
         field.addBall(first_ball);
 
-        first_ball.move(Direction.SOUTH);
+        first_ball.startMove(Direction.SOUTH);
 
         Point exp_point1 = new Point(0, 4);
         Assert.assertEquals(field.getCell(exp_point1), first_ball.owner());
     }
 
     @Test
-    public  void ballFacesWithBall(){
+    public  void ballFacesWithBall() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball first_ball = new Ball("red");
-        Ball second_ball = new Ball("blue");
+        Ball first_ball = new Ball();
+        first_ball.setColor("red");
+        Ball second_ball = new Ball();
+        second_ball.setColor("blue");
 
         field.getCell(new Point(0,  0)).setUnit(first_ball);
         first_ball.setOwner(field.getCell(new Point(0,  0)));
@@ -46,7 +49,7 @@ public class testBall {
         second_ball.setOwner(field.getCell(new Point(0,4)));
         field.addBall(second_ball);
 
-        first_ball.move(Direction.SOUTH);
+        first_ball.startMove(Direction.SOUTH);
 
         Point exp_point1 = new Point(0, 3);
         Assert.assertEquals(field.getCell(exp_point1), first_ball.owner());
@@ -56,9 +59,10 @@ public class testBall {
     }
 
     @Test
-    public  void ballFacesWithWall(){
+    public  void ballFacesWithWall() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball first_ball = new Ball("red");
+        Ball first_ball = new Ball();
+        first_ball.setColor("red");
         Wall wall = new Wall();
 
         field.getCell(new Point(0,  0)).setUnit(first_ball);
@@ -68,7 +72,7 @@ public class testBall {
         field.getCell(new Point(0,4)).setUnit(wall);
         wall.setOwner(field.getCell(new Point(0,4)));
 
-        first_ball.move(Direction.SOUTH);
+        first_ball.startMove(Direction.SOUTH);
 
         Point exp_point1 = new Point(0, 3);
         Assert.assertEquals(field.getCell(exp_point1), first_ball.owner());

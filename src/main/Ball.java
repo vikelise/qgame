@@ -3,53 +3,69 @@ package main;
 import main.events.BallEvent;
 import main.events.BallListener;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 public class Ball extends Unit{
-    private String color;
 
-    /**
-     *
-     * @param c - цвет мячика
-     */
-    public Ball(String c){
+    private Timer timer ;
+    private Direction direction;
+
+    private String color;
+    public void setColor(String c){
         this.color = c;
     }
+
+    public String getColor(){return color;}
+
+
+
+    public Ball(){
+        ActionListener timerListener = new TimerController();
+        timer = new Timer(250, timerListener);
+    }
+
+
 
     /**
      * Сместиться взаданном направление пока это возможно (нет препядствий или поле не закончилось)
      * @param direction - направление движения
      */
-    public void move(Direction direction){
-        boolean isMoved = true;
-        do{
-            isMoved = moveOnOneCell(direction);
-            if(!isMoved){
-                if (this.owner().getNeighbour(direction).getUnit() instanceof Gate) {
-                    this.owner().getNeighbour(direction).getUnit().goal(this);
-                }
-            }else ballMovedOneCell(this.owner().getNeighbour(direction.getOppositeDirection()));
-        }
-        while (this.owner()!=null && this.owner().getNeighbour(direction)!=null && isMoved);
-        ballMoved();
+    public void startMove(Direction direction){
+        this.direction = direction;
+        timer.start();
     }
 
-    public String getColor(){
-        return this.color;
+    private void Moving(){
+        boolean isMoved;
+        if(this.owner()!=null) {
+            isMoved = moveOnStep();
+            if (!isMoved) {
+                if (this.owner().getNeighbour(this.direction).getUnit() instanceof Gate) {
+                    this.owner().getNeighbour(this.direction).getUnit().goal(this);
+                }
+                ballEndMoving();
+            } else
+                moveOnStep(this.owner().getNeighbour(this.direction.getOppositeDirection()));
+        }
     }
+
+
 
     /**
      * Сместиться на один шаг (ячейку) в заданном направление, если это возможно
-     * @param direction - направление смещения
      * @return успешность смещения
      */
-    private boolean moveOnOneCell(Direction direction){
-        if(this.owner().getNeighbour(direction).getUnit()==null) {
+    private boolean moveOnStep(){
+        if(this.owner().getNeighbour(this.direction).getUnit()==null) {
                 this.owner().setUnit(null);
-                this.setOwner(this.owner().getNeighbour(direction));
+                this.setOwner(this.owner().getNeighbour(this.direction));
                 this.owner().setUnit(this);
                 return true;
-        }else return false;
+        }
+        return false;
 
     }
 
@@ -68,23 +84,41 @@ public class Ball extends Unit{
     }
 
     // Оповещает слушателей о событии
-    protected void ballMoved(){
+    protected void ballEndMoving(){
         BallEvent event = new BallEvent(this);
         event.setBall(this);
-
+        timer.stop();
         for (Object listener : ballListener){
-            ((BallListener)listener).ballMoved(event);
+            ((BallListener)listener).ballEndMoving(event);
         }
+
     }
 
-    protected void ballMovedOneCell(Cell cell){
+    protected void moveOnStep(Cell cell){
         BallEvent event = new BallEvent(this);
         event.setBall(this);
         event.setOldPosition(cell);
 
         for (Object listener : ballListener){
-            ((BallListener)listener).ballMovedOneCell(event);
+            ((BallListener)listener).moveOnStep(event);
         }
+    }
+
+
+
+    private class TimerController implements ActionListener{
+
+        /**
+         * Invoked when an action occurs.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Moving();
+        }
+
+
     }
 
 

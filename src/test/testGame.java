@@ -30,12 +30,12 @@ public class testGame {
     private class BallObserver implements BallListener{
 
         @Override
-        public void ballMoved(BallEvent e) {
+        public void ballEndMoving(BallEvent e) {
             ball_events.add(EVENT.BALLMOVED);
         }
 
         @Override
-        public void ballMovedOneCell(BallEvent e) {
+        public void moveOnStep(BallEvent e) {
 
         }
     }
@@ -45,8 +45,10 @@ public class testGame {
     @Test
     public  void gateEvent(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball("red");
-        Gate gate = new Gate("red");
+        Ball ball = new Ball();
+        ball.setColor("red");
+        Gate gate = new Gate();
+        gate.setColor("red");
 
         field.getCell(new Point(0,  0)).setUnit(ball);
         ball.setOwner(field.getCell(new Point(0,  0)));
@@ -69,8 +71,10 @@ public class testGame {
     @Test
     public  void gateNotEvent(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball("red");
-        Gate gate = new Gate("green");
+        Ball ball = new Ball();
+        ball.setColor("red");
+        Gate gate = new Gate();
+        gate.setColor("blue");
 
         field.getCell(new Point(0,  0)).setUnit(ball);
         ball.setOwner(field.getCell(new Point(0,  0)));
@@ -91,9 +95,10 @@ public class testGame {
     }
 
     @Test
-    public  void ballEvent(){
+    public  void ballEvent() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball ball = new Ball("red");
+        Ball ball = new Ball();
+        ball.setColor("red");
 
         field.getCell(new Point(0,  0)).setUnit(ball);
         ball.setOwner(field.getCell(new Point(0,  0)));
@@ -103,7 +108,7 @@ public class testGame {
             i.addBallListener(new BallObserver());
         }
 
-        ball.move(Direction.SOUTH);
+        ball.startMove(Direction.SOUTH);
 
         assertTrue(!ball_events.isEmpty());
     }
