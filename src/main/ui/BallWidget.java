@@ -1,9 +1,6 @@
 package main.ui;
 
-import main.Ball;
-import main.NoConvergingBall;
-import main.OrdinaryBall;
-import main.RandomlyMovingBall;
+import main.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -78,6 +75,12 @@ public class BallWidget extends CellWidget {
         }
         if(ball instanceof RandomlyMovingBall){
             String res = "Rand";
+            if (active) { res+=("active"); }
+            res+=(ball.getColor()+"Ball.png");
+            file = new File(res);
+        }
+        if(ball instanceof JumpingBall){
+            String res = "Jump";
             if (active) { res+=("active"); }
             res+=(ball.getColor()+"Ball.png");
             file = new File(res);

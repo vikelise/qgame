@@ -19,6 +19,8 @@ public class GateWidget extends JPanel {
             GATE_COLOR = "#8DC2FF";
         if(gate.getColor()=="green")
             GATE_COLOR = "#9CE073";
+        if(gate.getColor()=="purple")
+            GATE_COLOR = "#D493FB";
     }
 
     public String getColor(){return GATE_COLOR;}

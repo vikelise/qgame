@@ -59,7 +59,7 @@ public  class Generator {
         Wall wall09 = new Wall();
         Wall wall07 = new Wall();
         Wall wall06 = new Wall();
-        Wall wall05 = new Wall();
+
         Wall wall04 = new Wall();
         Wall wall03 = new Wall();
         Wall wall02 = new Wall();
@@ -150,8 +150,7 @@ public  class Generator {
         field.getCell(new Point(0, 6)).setUnit(wall06);
         wall06.setOwner(field.getCell(new Point(0,6)));
 
-        field.getCell(new Point(0, 5)).setUnit(wall05);
-        wall05.setOwner(field.getCell(new Point(0,5)));
+
 
         field.getCell(new Point(0, 4)).setUnit(wall04);
         wall04.setOwner(field.getCell(new Point(0,4)));
@@ -176,6 +175,8 @@ public  class Generator {
         gate2.setColor("blue");
         Gate gate3 = new Gate();
         gate3.setColor("green");
+        Gate gate4 = new Gate();
+        gate4.setColor("purple");
 
         field.getCell(new Point(0,8)).setUnit(gate1);
         gate1.setOwner(field.getCell(new Point(0,8)));
@@ -188,6 +189,10 @@ public  class Generator {
         field.getCell(new Point(4,9)).setUnit(gate3);
         gate3.setOwner(field.getCell(new Point(4,9)));
         field.addGate(gate3);
+
+        field.getCell(new Point(0,5)).setUnit(gate4);
+        gate4.setOwner(field.getCell(new Point(0,5)));
+        field.addGate(gate4);
     };
     protected  void addBalls(){
          //Ball firstBall = new Ball();
@@ -200,6 +205,9 @@ public  class Generator {
         NoConvergingBall thirdBall = new NoConvergingBall();
         thirdBall.setColor("green");
 
+        JumpingBall fourthBall = new JumpingBall();
+        fourthBall.setColor("purple");
+
          field.getCell(new Point(8,8)).setUnit(firstBall);
          firstBall.setOwner(field.getCell(new Point(8,8)));
          field.addBall(firstBall);
@@ -211,6 +219,10 @@ public  class Generator {
         field.getCell(new Point(4,4)).setUnit(thirdBall);
         thirdBall.setOwner(field.getCell(new Point(4,4)));
         field.addBall(thirdBall);
+
+        field.getCell(new Point(3,7)).setUnit(fourthBall);
+        fourthBall.setOwner(field.getCell(new Point(3,7)));
+        field.addBall(fourthBall);
     };
 
 }
