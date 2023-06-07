@@ -90,7 +90,6 @@ public class Game {
         }
     }
 
-
     private class BallObserver implements BallListener {
 
         @Override

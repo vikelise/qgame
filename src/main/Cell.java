@@ -4,9 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class Cell {
-
     private Unit unit;
-
     private Map<Direction, Cell> neighbours = new EnumMap<>(Direction.class);
 
     /**
@@ -36,10 +34,7 @@ public class Cell {
     public Unit getUnit(){
         return this.unit;
     }
-
     public void setUnit(Unit unit){
         this.unit = unit;
     }
-
-
 }

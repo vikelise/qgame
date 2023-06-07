@@ -22,38 +22,23 @@ public class Main {
         private GameWidget gameWidget;
         public GamePanel() throws HeadlessException {
             setVisible(true);
-
             game = new Game(new Generator());
             gameWidget = new GameWidget(game);
-
-
             game.setActiveBall(game.getField().hasBall().get(0));
-
-
             game.addGameListener(new GameController());
-
             JPanel content = (JPanel) this.getContentPane();
             FieldWidget fieldWidget = new FieldWidget(game.getField());
             gameWidget.setFieldWidget(fieldWidget);
             fieldWidget.getBallWidget(game.getActiveBall()).setActive(true);
-
-
-
             content.add(gameWidget);
-
             content.add(fieldWidget);
-
-
             gameWidget.setFocusTraversalKeysEnabled(false);
-
-
             pack();
             setResizable(false);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
 
         private final class GameController implements GameListener {
-
 
             @Override
             public void gameStatusChanged( GameEvent event) {

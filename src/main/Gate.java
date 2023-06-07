@@ -5,22 +5,12 @@ import main.events.GateListener;
 
 import java.util.ArrayList;
 
-public class Gate extends Unit{
-
-
-private String color;
-public void setColor(String c){
-    this.color = c;
-    }
-    public  String getColor(){return color;}
-
-
-
+public class Gate extends ColorUnit{
     /**
      * Попытаться поглотить мячик воротами
      * @param ball - поглощаемый (забиваемый) мячик
      */
-    @Override
+
     public void goal(Ball ball){
         if(ball.getColor()==this.getColor()) {
             Cell oldOwner = ball.owner();
@@ -30,8 +20,6 @@ public void setColor(String c){
         }
 
     }
-
-
 
     // ---------------------- Порождает события -----------------------------
 

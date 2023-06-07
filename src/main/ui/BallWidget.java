@@ -1,6 +1,9 @@
 package main.ui;
 
 import main.Ball;
+import main.NoConvergingBall;
+import main.OrdinaryBall;
+import main.RandomlyMovingBall;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -60,14 +63,24 @@ public class BallWidget extends CellWidget {
 
     private static File getBallFileByActive(Ball ball, boolean active) {
         File file = null;
-        if (ball.getColor() == "red")  {
-            file = active ? new File("activeRedBall.png") : new File("redBall.png");
+        if(ball instanceof OrdinaryBall){
+            String res = "Ord";
+            if (active) { res+=("active"); }
+            res+=(ball.getColor()+"Ball.png");
+            file = new File(res);
         }
-        if (ball.getColor() == "blue") {
-            file = active ? new File("activeBlueBall.png") : new File("blueBall.png");
+
+        if (ball instanceof NoConvergingBall){
+            String res = "NoCon";
+            if (active) { res+=("active"); }
+            res+=(ball.getColor()+"Ball.png");
+            file = new File(res);
         }
-        if (ball.getColor() == "green") {
-            file = active ? new File("activeGreenBall.png") : new File("greenBall.png");
+        if(ball instanceof RandomlyMovingBall){
+            String res = "Rand";
+            if (active) { res+=("active"); }
+            res+=(ball.getColor()+"Ball.png");
+            file = new File(res);
         }
 
 //        file = active ? new File("active"+ball.getColor()+"Ball.png") : new File("greenBall.png");

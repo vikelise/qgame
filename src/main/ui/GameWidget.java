@@ -50,7 +50,6 @@ public void setFieldWidget(FieldWidget fw){
         }
 
         private void moveAction(int keyCode) {
-
             Direction direction = directionByKeyCode(keyCode);
             if(direction != null && game.getActiveBall()!=null) {
                 setFocusable(false);
@@ -63,13 +62,9 @@ public void setFieldWidget(FieldWidget fw){
             if(keyCode == KeyEvent.VK_TAB){
                 fieldWidget.getBallWidget(game.getActiveBall()).setActive(false);
                 if(game.getField().hasBall().indexOf(game.getActiveBall()) == game.getField().hasBall().size()-1){
-
                     game.setActiveBall(game.getField().hasBall().get(0));
-
                 }else{
-
                     game.setActiveBall(game.getField().hasBall().get(game.getField().hasBall().indexOf(game.getActiveBall())+1));
-
                 };
                 fieldWidget.getBallWidget(game.getActiveBall()).setActive(true);
             }

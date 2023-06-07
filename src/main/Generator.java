@@ -190,11 +190,14 @@ public  class Generator {
         field.addGate(gate3);
     };
     protected  void addBalls(){
-         Ball firstBall = new Ball();
+         //Ball firstBall = new Ball();
+        OrdinaryBall firstBall = new OrdinaryBall();
          firstBall.setColor("red");
-         Ball secondBall = new Ball();
+         //Ball secondBall = new Ball();
+        RandomlyMovingBall secondBall = new RandomlyMovingBall();
          secondBall.setColor("blue");
-        Ball thirdBall = new Ball();
+       // Ball thirdBall = new Ball();
+        NoConvergingBall thirdBall = new NoConvergingBall();
         thirdBall.setColor("green");
 
          field.getCell(new Point(8,8)).setUnit(firstBall);

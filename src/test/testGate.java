@@ -1,9 +1,6 @@
 package test;
 
-import main.Ball;
-import main.Direction;
-import main.Field;
-import main.Gate;
+import main.*;
 import main.events.BallEvent;
 import main.events.BallListener;
 import main.events.GateEvent;
@@ -22,7 +19,8 @@ public class testGate {
     @Test
     public  void colorBallSameColorGate(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball();
+        //Ball ball = new Ball();
+        OrdinaryBall ball = new OrdinaryBall();
         ball.setColor("red");
         Gate gate = new Gate();
         gate.setColor("red");
@@ -47,7 +45,8 @@ public class testGate {
     @Test
     public  void colorBallNotSameColorGate(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball();
+        //Ball ball = new Ball();
+        OrdinaryBall ball = new OrdinaryBall();
         ball.setColor("red");
         Gate gate = new Gate();
         gate.setColor("blue");

@@ -1,26 +1,20 @@
 package test;
 import main.*;
-import main.events.BallEvent;
-import main.events.BallListener;
-import main.events.GateEvent;
-import main.events.GateListener;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class testBall {
+public class testOrdinaryBall {
 
 
     @Test
     public  void goingBeyondBordersField() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball first_ball = new Ball();
+       //Ball first_ball = new Ball();
+        OrdinaryBall first_ball = new OrdinaryBall();
         first_ball.setColor("red");
 
         field.getCell(new Point(0,  0)).setUnit(first_ball);
@@ -36,9 +30,11 @@ public class testBall {
     @Test
     public  void ballFacesWithBall() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball first_ball = new Ball();
+        //Ball first_ball = new Ball();
+        OrdinaryBall first_ball = new OrdinaryBall();
         first_ball.setColor("red");
-        Ball second_ball = new Ball();
+       // Ball second_ball = new Ball();
+        OrdinaryBall second_ball= new OrdinaryBall();
         second_ball.setColor("blue");
 
         field.getCell(new Point(0,  0)).setUnit(first_ball);
@@ -61,7 +57,8 @@ public class testBall {
     @Test
     public  void ballFacesWithWall() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball first_ball = new Ball();
+       // Ball first_ball = new Ball();
+        OrdinaryBall first_ball = new OrdinaryBall();
         first_ball.setColor("red");
         Wall wall = new Wall();
 
@@ -73,6 +70,7 @@ public class testBall {
         wall.setOwner(field.getCell(new Point(0,4)));
 
         first_ball.startMove(Direction.SOUTH);
+
 
         Point exp_point1 = new Point(0, 3);
         Assert.assertEquals(field.getCell(exp_point1), first_ball.owner());

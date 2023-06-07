@@ -45,7 +45,8 @@ public class testGame {
     @Test
     public  void gateEvent(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball();
+        //Ball ball = new Ball();
+        OrdinaryBall ball = new OrdinaryBall();
         ball.setColor("red");
         Gate gate = new Gate();
         gate.setColor("red");
@@ -71,7 +72,8 @@ public class testGame {
     @Test
     public  void gateNotEvent(){
         Field field = new Field(1, 2);
-        Ball ball = new Ball();
+        //Ball ball = new Ball();
+        OrdinaryBall ball = new OrdinaryBall();
         ball.setColor("red");
         Gate gate = new Gate();
         gate.setColor("blue");
@@ -97,7 +99,8 @@ public class testGame {
     @Test
     public  void ballEvent() throws InterruptedException {
         Field field = new Field(1, 5);
-        Ball ball = new Ball();
+       // Ball ball = new Ball();
+        OrdinaryBall ball = new OrdinaryBall();
         ball.setColor("red");
 
         field.getCell(new Point(0,  0)).setUnit(ball);

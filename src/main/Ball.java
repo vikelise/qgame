@@ -8,66 +8,31 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Timer;
 
-public class Ball extends Unit{
-
+abstract public class Ball extends ColorUnit{
     private Timer timer ;
     private Direction direction;
-
-    private String color;
-    public void setColor(String c){
-        this.color = c;
-    }
-
-    public String getColor(){return color;}
-
-
-
-    public Ball(){
-        ActionListener timerListener = new TimerController();
-        timer = new Timer(250, timerListener);
-    }
-
-
-
+    public Direction getDirection(){return direction;}
+    public void setDirection(Direction dir){this.direction = dir;}
     /**
      * Сместиться взаданном направление пока это возможно (нет препядствий или поле не закончилось)
      * @param direction - направление движения
      */
     public void startMove(Direction direction){
-        this.direction = direction;
+
+    }
+
+    public void startTimer(){
+        ActionListener timerListener = new TimerController();
+        timer = new Timer(250, timerListener);
         timer.start();
     }
 
-    private void Moving(){
-        boolean isMoved;
-        if(this.owner()!=null) {
-            isMoved = moveOnStep();
-            if (!isMoved) {
-                if (this.owner().getNeighbour(this.direction).getUnit() instanceof Gate) {
-                    this.owner().getNeighbour(this.direction).getUnit().goal(this);
-                }
-                ballEndMoving();
-            } else
-                moveOnStep(this.owner().getNeighbour(this.direction.getOppositeDirection()));
-        }
-    }
-
-
-
-    /**
+    protected abstract void Moving();
+        /**
      * Сместиться на один шаг (ячейку) в заданном направление, если это возможно
      * @return успешность смещения
      */
-    private boolean moveOnStep(){
-        if(this.owner().getNeighbour(this.direction).getUnit()==null) {
-                this.owner().setUnit(null);
-                this.setOwner(this.owner().getNeighbour(this.direction));
-                this.owner().setUnit(this);
-                return true;
-        }
-        return false;
-
-    }
+    protected abstract boolean moveOnStep();
 
     // ---------------------- Порождает события -----------------------------
 
@@ -91,20 +56,16 @@ public class Ball extends Unit{
         for (Object listener : ballListener){
             ((BallListener)listener).ballEndMoving(event);
         }
-
     }
 
     protected void moveOnStep(Cell cell){
         BallEvent event = new BallEvent(this);
         event.setBall(this);
         event.setOldPosition(cell);
-
         for (Object listener : ballListener){
             ((BallListener)listener).moveOnStep(event);
         }
     }
-
-
 
     private class TimerController implements ActionListener{
 
@@ -117,8 +78,6 @@ public class Ball extends Unit{
         public void actionPerformed(ActionEvent e) {
             Moving();
         }
-
-
     }
 
 
